@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "../styles/torn-header.tokens.css";
 import "../styles/torn-header.css";
 import {
@@ -6,7 +6,7 @@ import {
   NerveIcon,
   LifeIcon,
   TornStatsIcon,
-  LayoutIcon,
+  NetworkStatusIcon,
   SettingsIcon,
   LevelIcon,
   PlayerIcon,
@@ -14,17 +14,17 @@ import {
   StatusHospitalIcon,
   StatusJailIcon,
   StatusTravelIcon,
-  StatusOfflineIcon
+  StatusOfflineIcon,
+  TimeTctIcon
 } from "./icons";
-import type { LayoutMode, PlayerSnapshot } from "@shared/types";
+import type { PlayerSnapshot } from "@shared/types";
 import logoSrc from "../assets/brand/tornlinux_logo.svg";
 
 type Props = {
   player: PlayerSnapshot;
-  layoutMode: LayoutMode;
-  splitAllowed: boolean;
+  networkOnline: boolean;
   onToggleTornStats: () => void;
-  onToggleLayout: () => void;
+  onOpenNetworkSettings: () => void;
   onOpenSettings: () => void;
 };
 
@@ -66,18 +66,33 @@ function getStatusTone(status: PlayerSnapshot["status"]) {
   return "offline";
 }
 
+function useTctClock() {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  return useMemo(() => new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'UTC',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).format(now), [now]);
+}
+
 export function TornLinuxHeader({
   player,
-  layoutMode,
-  splitAllowed,
+  networkOnline,
   onToggleTornStats,
-  onToggleLayout,
+  onOpenNetworkSettings,
   onOpenSettings,
 }: Props) {
   const StatusIcon = getStatusIcon(player.status.kind);
   const countdown = formatStatusCountdown(player.status.until);
   const statusText = countdown ? `${player.status.label} · ${countdown}` : player.status.description || player.status.label;
   const statusTone = getStatusTone(player.status);
+  const tct = useTctClock();
 
   return (
     <header className="tlHeader" role="banner">
@@ -140,20 +155,23 @@ export function TornLinuxHeader({
       </div>
 
       <div className="tlRight">
+        <div className="tlTctReadout" aria-label="Torn City Time">
+          <TimeTctIcon className="tlTctReadoutIcon" />
+          <span className="tlTctReadoutValue">{tct}</span>
+        </div>
+
         <button className="tlAction tlAction--tornstats" onClick={onToggleTornStats} type="button" aria-label="Open TornStats">
           <TornStatsIcon className="tlActionIconSvg" />
           <span className="tlActionLabel">TornStats</span>
         </button>
-
         <button
-          className={`tlAction tlAction--layout ${layoutMode === "split" ? "isSelected" : ""}`}
-          onClick={onToggleLayout}
+          className={`tlAction tlAction--network ${networkOnline ? "isOnline" : "isOffline"}`}
+          onClick={onOpenNetworkSettings}
           type="button"
-          aria-label={splitAllowed ? "Toggle layout" : "Split layout unavailable"}
-          disabled={!splitAllowed}
+          aria-label={networkOnline ? "Network status online" : "Network status offline"}
         >
-          <LayoutIcon className="tlActionIconSvg" />
-          <span className="tlActionLabel">Layout</span>
+          <NetworkStatusIcon className="tlActionIconSvg" />
+          <span className="tlActionLabel">{networkOnline ? "Online" : "Offline"}</span>
         </button>
 
         <button className="tlAction tlAction--settings" onClick={onOpenSettings} type="button" aria-label="Open settings">

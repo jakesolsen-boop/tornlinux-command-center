@@ -106,3 +106,23 @@ export const PlayerIcon = ({ className, title }: IconProps) => (
     <path d="M5.5 18.2c1.5-2.8 3.7-4.2 6.5-4.2s5 1.4 6.5 4.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
   </svg>
 );
+
+
+export const NetworkStatusIcon = ({ className, title }: IconProps) => (
+  <svg className={className} viewBox="0 0 20 20" fill="none" aria-hidden={title ? undefined : true} role={title ? "img" : "presentation"} xmlns="http://www.w3.org/2000/svg">
+    {title ? <title>{title}</title> : null}
+    <circle cx="10" cy="14.2" r="1.4" fill="currentColor"/>
+    <path d="M6.9 11.6C8.7 9.9 11.3 9.9 13.1 11.6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+    <path d="M4.7 9.2C7.7 6.5 12.3 6.5 15.3 9.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+    <path d="M2.6 6.7C6.8 3.1 13.2 3.1 17.4 6.7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+  </svg>
+);
+
+
+export const TimeTctIcon = ({ className, title }: IconProps) => (
+  <svg className={className} viewBox="0 0 20 20" fill="none" aria-hidden={title ? undefined : true} role={title ? "img" : "presentation"} xmlns="http://www.w3.org/2000/svg">
+    {title ? <title>{title}</title> : null}
+    <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.4"/>
+    <path d="M10 6.5V10L12.8 11.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+  </svg>
+);

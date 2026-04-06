@@ -85,3 +85,50 @@
 .tlAction.isSelected .tlActionIconSvg { color: var(--tl-teal); }
 .tlAction.isDisabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 .tlAction.isDisabled .tlActionIconSvg { opacity: 0.45; filter: none; }
+
+
+.tlAction--network.isOffline {
+  border-color: rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, rgba(18,24,33,0.88), rgba(12,16,22,0.92));
+}
+.tlAction--network.isOffline .tlActionLabel {
+  color: rgba(255,255,255,0.82);
+}
+.tlAction--network.isOnline {
+  border-color: rgba(35, 230, 200, 0.30);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(35,230,200,0.12), transparent 60%),
+    linear-gradient(180deg, rgba(18,24,33,0.94), rgba(12,16,22,0.96));
+  box-shadow: var(--tl-shadow), var(--tl-inner), 0 0 16px rgba(35, 230, 200, 0.18);
+}
+.tlAction--network.isOnline .tlActionIconSvg {
+  color: var(--tl-teal);
+  filter: drop-shadow(0 0 6px rgba(35, 230, 200, 0.48));
+}
+.tlAction--network.isOnline .tlActionLabel {
+  color: rgba(235,255,251,0.96);
+}
+
+
+.tlTctReadout {
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(17, 23, 34, 0.84);
+  color: rgba(231, 238, 247, 0.88);
+}
+.tlTctReadoutIcon {
+  width: 16px;
+  height: 16px;
+  color: rgba(123, 231, 255, 0.88);
+}
+.tlTctReadoutValue {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
