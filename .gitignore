@@ -1,5 +1,14 @@
-node_modules
-dist
-TornLinux-linux-x64
-live-image-*.iso
+node_modules/
+dist/
+TornLinux-linux-x64/
+# ALL ISO files (any name, anywhere)
+*.iso
+#live-build directories (Critical)
+live-build/binary/
+live-build/chroot/
+live-build/build/
+live-build/cache/
+live-build/temp/
+
+# logs
 *.log
