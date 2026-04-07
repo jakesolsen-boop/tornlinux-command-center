@@ -1,6 +1,0 @@
-TornLinux Preflight Summary v1.3.14
-Project root: /home/jakesolsen/TornLinux_REPO_READY_BASELINE_1.3.14
-Validating version propagation integrity
-Validating package availability against apt
-Verified package availability
-Verified stable baseline corrections
